@@ -5,7 +5,6 @@ const { checkSchema, validationResult} = require('express-validator');
 const Models = require('../models/index')
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
 
-
 class RouterClass {
     constructor({ passport }){
         this.router = express.Router();
@@ -81,12 +80,26 @@ class RouterClass {
             return res.json({ msg: "Hello API" })
         })
 
+        /* Get user balance*/
+        this.router.get('/get-balance/:address', (req, res) => {
+            Controllers.nft.getNativeBalance(req)
+                .then(apiResponse => res.json({ data: apiResponse, err: null }))
+                .catch(apiError => res.status(500).json({ data: null, err: apiError }))
+        })
+
+        /* Get user balance*/
+        this.router.get('/get-transactions/:address', (req, res) => {
+            Controllers.nft.getTransactions(req)
+                .then(apiResponse => res.json({ data: apiResponse, err: null }))
+                .catch(apiError => res.status(500).json({ data: null, err: apiError }))
+        })
+
         /**
          * 
          * 
          * Collections Routes
          * 
-         *  */ 
+         **/ 
 
         // Create
         this.router.post('/collections', 
@@ -221,7 +234,6 @@ class RouterClass {
                 .catch(apiError => res.status(500).json({ data: null, err: apiError }))
         })
 
-
         /**
          * 
          * 
@@ -258,7 +270,8 @@ class RouterClass {
          * 
          * Stripe
          * 
-         *  */
+         *  
+         * */
 
          this.router.post('/create-checkout-session', 
             this.passport.authenticate('jwt', { session: false }),
@@ -295,7 +308,6 @@ class RouterClass {
                     res.status(500).json({ data: null, err: e.message })
                 }
             })
-
     }
 
     init() {

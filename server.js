@@ -13,7 +13,7 @@ class ServerClass {
 
     init() {
         this.server.use((req, res, next) => {
-            const allowedOrigins = ['http://localhost:8080', 'http://localhost:8080'];
+            const allowedOrigins = ['http://localhost:3000', 'http://localhost:3000'];
             const origin = req.headers.origin;
 
             if(allowedOrigins.indexOf(origin) > -1){ res.setHeader('Access-Control-Allow-Origin', origin)}
@@ -34,7 +34,7 @@ class ServerClass {
         setAuthentication(passport);
         setGoogleOauth(passport);
         const AuthRouterClass = require('./router/auth.router');
-        const authRouter = new AuthRouterClass({ passport });
+        const authRouter = new AuthRouterClass();
         this.server.use('/v1/auth', authRouter.init());
         const ApiRouterClass = require('./router/api.router');
         const apiRouter = new ApiRouterClass({ passport });

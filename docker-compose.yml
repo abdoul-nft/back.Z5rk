@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    environment:
+      PORT: 4000
+      NODE_ENV: production
+      MONGO_URL: mongodb://mongo_db:27017/z5rk
+      JWT_SECRET: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+      GOOGLE_CLIENT_ID: 425500617087-0p97o9tjdldue001na47ufee00buet71.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+      GOOGLE_CALLBACK_URL: http://localhost:4000/auth/google/callback
+      NFT_API_APP_ID: 73LYGy6RNPc4lXr9BSb9RBbChLIdjFHeJ6PKMbbn
+      NFT_API_MORALIS_SECRET: mCNSR8qnDZ8cnKjcbpKfjSiy7sQGHgM8NhFjqfrs1tXY1j6GzFsWjBm9VrksJsNs
+      NFT_API_SERVER_URL: https://8reqdyiiexsd.usemoralis.com:2053/server
+      STRIPE_PRIVATE_KEY: sk_test_51IafPeLZpePNw5xWA9kL6xSE7uKRA8W0MQ0y0NK2qIZH0ee59jE8WJAbzDF5n2r0SXJKZRjkWQBAr9pE5GApSN9300uxMz0Hm4
+      CLIENT_URL: https://client_url.io
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongo_db
+    links:
+      - mongo_db
+    volumes:
+      - .:/usr/src/app
+  mongo_db:
+    image: mongo:latest
+    ports:
+      - 27016:27016
+    volumes:
+      - data:/data/db
+volumes:
+  data:

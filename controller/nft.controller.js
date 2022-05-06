@@ -114,6 +114,40 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
       })
     }
 
+    const getNativeBalance = async (req) => {
+      return new Promise( async (resolve, reject) => {
+        await Moralis.start({ serverUrl, appId, moralisSecret });
+        
+        const options = {
+          chain: "rinkeby",
+          address: req.params.address,
+        }
+
+        const data = await Moralis.Web3API.account.getNativeBalance(options);
+        
+        if(data) return resolve(data)
+        return reject('error')
+      })
+    }
+
+
+    const getTransactions = async (req) => {
+      return new Promise( async (resolve, reject) => {
+        await Moralis.start({ serverUrl, appId, moralisSecret });
+        
+        const options = {
+          chain: "rinkeby",
+          address: req.params.address,
+          order: "desc",
+        }
+        
+        const data = await Moralis.Web3API.account.getTransactions(options);
+        
+        if(data) return resolve(data)
+        return reject('error')
+      })
+    }
+
     module.exports = {
       addNftToCollection,
       removeNftFromCollection,
@@ -124,5 +158,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
       getNftTransfers,
       searchNFTs,
       web3API,
-      readAll
+      readAll,
+      getNativeBalance,
+      getTransactions
     }

@@ -4,20 +4,31 @@
 
     const register = req => {
         return new Promise( (resolve, reject) => {
-
-            bcrypt.hash( req.body.password, 10 )
-            .then( hashedPassword => {
-                req.body.password = hashedPassword;
-                req.body.role = 'regular'
-                Models.user.create(req.body)
-                .then( data => {
-                    const userToken = data.generateJwt(data)
-                    data.token = userToken
-                    resolve({'user': data, 'access_token': userToken }) 
-                })
-                .catch( err => reject(err) )
+            Models.user.create(req.body)
+            .then( user => {
+                resolve(user) 
             })
-            .catch( bcryptError => reject(bcryptError))
+            .catch( err => reject(err) )
+        })
+    }
+
+    const readOne = req => {
+        return new Promise((resolve, reject) => {
+            Models.user.findOne({ 'wallet_address': req.params.wallet_address }, (err, user) => {
+                return err
+                ? reject(err)
+                : resolve(user)
+            })
+        })
+    }    
+
+    const updateOne = req => {
+        return new Promise((resolve, reject) => {
+            Models.user.updateOne( { 'wallet_address': req.params.wallet_address }, req.body, (err, user) => {
+                return err
+                ? reject(err)
+                : resolve(user) 
+            })
         })
     }
 
@@ -45,5 +56,7 @@
 
     module.exports = {
         register,
+        updateOne,
+        readOne,
         login
     }

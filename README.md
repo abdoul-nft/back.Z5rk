@@ -2,7 +2,7 @@
 
 ## L’équipe
 
-Abdoul ZAKARI - Melien Roldy PIERRE
+Abdoul ZAKARI
 
 <br>
 
@@ -19,15 +19,6 @@ Nous avons choisi de créer une API qui permet d'avoir accès à aux NFTs qui so
 - Supprimer des nft de sa collection
 - Ajouter des commentaires à sa collection  
 
-
-<br>
-
-## Collection postman 
-
-Le fichier `Projet NodeJS.postman_collection.json` est une collection postman contenant les requêtes vers les différents `endpoints` l'api
-
-
-<br>
 
 ## Les dépendances du projet
 
