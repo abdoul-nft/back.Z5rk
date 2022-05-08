@@ -8,7 +8,6 @@ const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
 class RouterClass {
     constructor(){
         this.router = express.Router();
-
         this.validationSchema = {
             collection: {
                 name: {
