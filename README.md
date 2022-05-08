@@ -1,4 +1,4 @@
-# Projet NodeJS
+# Projet Z5rk
 
 ## L’équipe
 
@@ -9,15 +9,17 @@ Abdoul ZAKARI
 
 ## Introduction
 
-Nous avons choisi de créer une API qui permet d'avoir accès à aux NFTs qui sont sur les marketplaces telque Opensea :
-- Créer une collection
-- Mise à jour de collection
-- Faire des rechches de nft
-- Ajouter des nft à sa collection
-- Obtenir les propriétaires des Nft
-- Voir les metadata des nft de sa collection
-- Supprimer des nft de sa collection
-- Ajouter des commentaires à sa collection  
+L’idée est de créer tout un écosystème pour révéler et analyser diverses collections NFT du marché. Trouver les collections NFT disponibles et parcourir leurs données pour obtenir de meilleures informations. En plus de cela, la possibilité d'appliquer diverses mesures pour effectuer une meilleure analyse de n'importe quel NFT particulier.
+
+- Faire des rechches de NFT
+- Obtenir les propriétaires des NFTs
+- Propriétés du NFT pour comprendre sa rareté et son processus de génération
+- Découvrir si le créateur NFT a une communauté ou non. Si oui, déterminer l'emplacement et la suite de la communauté.
+- Étudier le prix actuel de ce NFT
+- Découvrir combien de pièces au total de ce NFT existent sur le marché
+- Minter ses propres NFTs
+- Vendre ses propres NFTs
+- Avoir une liste complete des transactions effectuées sur ses wallets
 
 
 ## Les dépendances du projet
@@ -65,14 +67,6 @@ ALLOWED_ORIGINS=...
 
 # MONGO
 MONGO_URL=...
-
-# JWT
-JWT_SECRET=...
-
-# Google OAUTH
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-GOOGLE_CALLBACK_URL=
 
 # MONGO
 MONGO_URL=

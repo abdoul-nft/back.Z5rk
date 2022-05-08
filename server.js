@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const MongoClass = require('./services/mongo.class')
 
 class ServerClass {
@@ -29,15 +28,11 @@ class ServerClass {
     }
 
     config() {
-        const { setAuthentication } = require('./services/passport.service');
-        const { setGoogleOauth } = require('./services/passport-google-oauth');
-        setAuthentication(passport);
-        setGoogleOauth(passport);
         const AuthRouterClass = require('./router/auth.router');
         const authRouter = new AuthRouterClass();
         this.server.use('/v1/auth', authRouter.init());
         const ApiRouterClass = require('./router/api.router');
-        const apiRouter = new ApiRouterClass({ passport });
+        const apiRouter = new ApiRouterClass();
         this.server.use('/v1', apiRouter.init());
         this.launch();
     }

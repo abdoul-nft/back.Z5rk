@@ -6,9 +6,8 @@ const Models = require('../models/index')
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
 
 class RouterClass {
-    constructor({ passport }){
+    constructor(){
         this.router = express.Router();
-        this.passport = passport;
 
         this.validationSchema = {
             collection: {
@@ -103,7 +102,6 @@ class RouterClass {
 
         // Create
         this.router.post('/collections', 
-            this.passport.authenticate('jwt', { session: false }),
             checkSchema(this.validationSchema.collection), 
             (req, res) => {
                 const errors = validationResult(req);
@@ -131,7 +129,7 @@ class RouterClass {
         })
         // Update
         this.router.put('/collections/:id', 
-            this.passport.authenticate('jwt', { session: false }), 
+            
             checkSchema(this.validationSchema.collection),
             (req, res) => {
                 const errors = validationResult(req);
@@ -146,7 +144,7 @@ class RouterClass {
                     .catch(apiError => res.status(500).json({ data: null, err: apiError }))
         })
         // Delete
-        this.router.delete('/collections/:id', this.passport.authenticate('jwt', { session: false }), isAdmin, (req, res) => {
+        this.router.delete('/collections/:id', isAdmin, (req, res) => {
             Controllers.collection.deleteOne(req)
                 .then(apiResponse => res.json({ data: apiResponse, err: null }))
                 .catch(apiError => res.status(500).json({ data: null, err: apiError }))
@@ -163,7 +161,7 @@ class RouterClass {
 
         // Create
         this.router.post('/nfts/:collectionId', 
-            this.passport.authenticate('jwt', { session: false }), 
+            
             checkSchema(this.validationSchema.nft),
             (req, res) => {
                 const errors = validationResult(req);
@@ -221,7 +219,7 @@ class RouterClass {
         })
 
         /* remove Nft From Collection with Moralis API */
-        this.router.delete('/nfts/:id', this.passport.authenticate('jwt', { session: false }), (req, res) => {
+        this.router.delete('/nfts/:id', (req, res) => {
             Controllers.nft.removeNftFromCollection(req)
                 .then(apiResponse => res.json({ data: apiResponse, err: null }))
                 .catch(apiError => res.status(500).json({ data: null, err: apiError }))
@@ -243,7 +241,7 @@ class RouterClass {
 
         // Create
         this.router.post('/comments/:collectionId', 
-            this.passport.authenticate('jwt', { session: false }), 
+            
             checkSchema(this.validationSchema.comment),
             (req, res) => {
                 const errors = validationResult(req);
@@ -259,7 +257,7 @@ class RouterClass {
         })
 
         // Delete
-        this.router.delete('/comments/:id', this.passport.authenticate('jwt', { session: false }), isAdmin, (req, res) => {
+        this.router.delete('/comments/:id', isAdmin, (req, res) => {
             Controllers.comment.deleteOne(req)
                 .then(apiResponse => res.json({ data: apiResponse, err: null }))
                 .catch(apiError => res.status(500).json({ data: null, err: apiError }))
@@ -274,7 +272,6 @@ class RouterClass {
          * */
 
          this.router.post('/create-checkout-session', 
-            this.passport.authenticate('jwt', { session: false }),
             checkSchema(this.validationSchema.stripe),
             async (req, res) => {
                 const errors = validationResult(req);
