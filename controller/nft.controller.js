@@ -10,7 +10,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const searchNFTs = (req) => {
       return new Promise( async (resolve, reject) => {
           await Moralis.start({ serverUrl, appId, moralisSecret });
-          const options = { q: req.query.q};
+          const options = { q: req.query.q, limit: 10};
           const NFTs = await Moralis.Web3API.token.searchNFTs(options);
           if(NFTs) return resolve(NFTs)
           return reject('error')
@@ -140,7 +140,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
           address: req.params.address,
           order: "desc",
         }
-        
+
         const data = await Moralis.Web3API.account.getTransactions(options);
         
         if(data) return resolve(data)
