@@ -12,7 +12,7 @@ class ServerClass {
 
     init() {
         this.server.use((req, res, next) => {
-            const allowedOrigins = ['https://z5rk-ep4nv.ondigitalocean.app', 'https://z5rk-ep4nv.ondigitalocean.app'];
+            const allowedOrigins = ['https://z5rk-ep4nv.ondigitalocean.app', 'http://localhost:3000'];
             const origin = req.headers.origin;
 
             if(allowedOrigins.indexOf(origin) > -1){ res.setHeader('Access-Control-Allow-Origin', origin)}

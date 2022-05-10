@@ -9,6 +9,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
 
     const searchNFTs = (req) => {
       return new Promise( async (resolve, reject) => {
+          if(!req.query.q) return reject( {'error': 'query is required'})
           await Moralis.start({ serverUrl, appId, moralisSecret });
           const options = { q: req.query.q, limit: 10};
           const NFTs = await Moralis.Web3API.token.searchNFTs(options);
@@ -22,7 +23,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
       
         const price = await Moralis.Web3API.token.getTokenPrice({
           address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-          chain: "bsc",
+          chain: "eth",
         });
         console.log(price);
     };
@@ -56,6 +57,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getNftMetadata = (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = { address: req.params.address};
         const data = await Moralis.Web3API.token.getNFTMetadata(options);
         if(data) return resolve(data)
@@ -66,6 +68,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getNftOwners = (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = { address: req.params.address};
         const data = await Moralis.Web3API.token.getNFTOwners(options);
         if(data) return resolve(data)
@@ -76,6 +79,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getNftTrades = (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = { address: req.params.address};
         const data = await Moralis.Web3API.token.getNFTTrades(options);
         if(data) return resolve(data)
@@ -86,6 +90,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getNftTransfers = (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = { address: req.params.address};
         const data = await Moralis.Web3API.account.getNFTTransfers(options);
         if(data) return resolve(data)
@@ -97,6 +102,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getNftsForContract = (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = { address: req.params.address, token_address: req.params.token_address };
         const data = await Moralis.Web3API.account.getNFTsForContract(options);
         if(data) return resolve(data)
@@ -117,7 +123,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getNativeBalance = async (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
-        
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = {
           chain: "rinkeby",
           address: req.params.address,
@@ -134,7 +140,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET;
     const getTransactions = async (req) => {
       return new Promise( async (resolve, reject) => {
         await Moralis.start({ serverUrl, appId, moralisSecret });
-        
+        if(!req.params.address) return reject( {'error': 'token address is required'})
         const options = {
           chain: "rinkeby",
           address: req.params.address,
