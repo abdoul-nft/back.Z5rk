@@ -6,13 +6,12 @@
 
     const MySchema = new Schema({
         email: { 
-            unique: true, 
-            type: String ,
+            type: String,
             default : null
         },
         username: {
             type: String ,
-            default : 'Unamed'
+            default: 'Unamed'
         },
         wallet_address: {
             unique: true, 
