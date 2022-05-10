@@ -7,61 +7,13 @@
     class RouterClass{
         constructor(){
             this.router = express.Router();
-
-            this.registrationSchema = {
-                email: {
-                    custom: {
-                        options: value => {
-                            return User.find({
-                                email: value
-                            }).then(user => {
-                                if (user.length > 0) {
-                                    return Promise.reject('Email address already taken')
-                                }
-                            })
-                        }
-                    }
-                },
-                wallet_address: {
-                    custom: {
-                        options: value => {
-                            return User.find({
-                                wallet_address: value
-                            }).then(user => {
-                                if (user.length > 0) {
-                                    return Promise.reject('Wallet address already taken')
-                                }
-                            })
-                        }
-                    }
-                },
-            }
-
-            this.loginSchema = {
-                email: {
-                    isEmail: true,
-                }
-            }
-
         }
 
         routes() {
 
-            this.router.get('/register', 
-            checkSchema(this.registrationSchema),
+            this.router.post('/add/:wallet_address', 
             (req, res) => {
-                return res.status(400).json({
-                    success: false,
-                    errors: ''
-                });
-                const errors = validationResult(req);
-                if (!errors.isEmpty()) {
-                    return res.status(400).json({
-                        success: false,
-                        errors: errors.array()
-                    });
-                }
-                Controllers.auth.register(req)
+                Controllers.auth.addAccompte(req)
                 .then( apiResponse => res.json( { user: apiResponse, err: null } ))
                 .catch( apiError => res.status(401).json( { user: null, err: apiError } ))
             })
@@ -76,19 +28,6 @@
                 Controllers.auth.updateOne(req)
                     .then(apiResponse => res.json({ user: apiResponse, err: null }))
                     .catch(apiError => res.status(500).json({ user: null, err: apiError }))
-            })
-
-            this.router.post('/login', checkSchema(this.loginSchema), (req, res) => {
-                const errors = validationResult(req);
-                if (!errors.isEmpty()) {
-                    return res.status(400).json({
-                        success: false,
-                        errors: errors.array()
-                    });
-                }
-                Controllers.auth.login(req, res)
-                .then( apiResponse => res.json( { user: apiResponse, err: null } ))
-                .catch( apiError => res.status(401).json( { user: null, err: apiError } ))
             })
         }
 
