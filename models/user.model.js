@@ -40,26 +40,5 @@
         }
     })
 
-
-    // MySchema.methods.generateJwt = user => {
-    //     const expiryToken = new Date();
-    //     expiryToken.setDate( expiryToken.getDate() + 59 );
-
-    //     const jwtObject = {
-    //         _id: user._id,
-    //         email: user.email,
-    //         firstname: user.firstname,
-    //         lastname: user.lastname,
-    //         role: user.role,
-    //         lastConnection: user.lastConnection,
-
-    //         expireIn: '5s',
-    //         exp: parseInt( expiryToken.getTime() / 100, 10 )
-    //     }
-
-    //     return jwt.sign( jwtObject, process.env.JWT_SECRET );
-    // };
-
-
     const MyModel = mongoose.model('user', MySchema);
     module.exports = MyModel;

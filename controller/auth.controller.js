@@ -38,6 +38,7 @@
             Models.user.updateOne( 
                 { 'wallet_address': req.params.wallet_address }, 
                 {'email': email, 'username': username, 'bio': bio, 'twitter_username': twitter_username, 'instagram_username': instagram_username}, 
+                { returnOriginal: false },
                 (err, user) => {
                 return err
                 ? reject(err)
