@@ -2,16 +2,6 @@
     const bcrypt = require('bcryptjs');
     const Models = require('../models/index');
 
-    const register = req => {
-        return new Promise( (resolve, reject) => {
-            Models.user.create(req.body)
-            .then( user => {
-                resolve(user) 
-            })
-            .catch( err => reject(err) )
-        })
-    }
-
     const addAccompte = req => {
         return new Promise( (resolve, reject) => {
             if(!req.params.wallet_address) return reject( {'error': 'token address is required'})
@@ -47,7 +37,6 @@
 
 
     module.exports = {
-        register,
         updateOne,
         readOne,
         addAccompte
