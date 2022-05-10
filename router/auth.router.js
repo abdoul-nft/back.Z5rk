@@ -10,8 +10,7 @@
         }
 
         routes() {
-
-            this.router.post('/add/:wallet_address', 
+            this.router.get('/add/:wallet_address', 
             (req, res) => {
                 Controllers.auth.addAccompte(req)
                 .then( apiResponse => res.json( { user: apiResponse, err: null } ))
