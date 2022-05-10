@@ -47,9 +47,13 @@
 
         routes() {
 
-            this.router.post('/register', 
+            this.router.get('/register', 
             checkSchema(this.registrationSchema),
             (req, res) => {
+                return res.status(400).json({
+                    success: false,
+                    errors: ''
+                });
                 const errors = validationResult(req);
                 if (!errors.isEmpty()) {
                     return res.status(400).json({
