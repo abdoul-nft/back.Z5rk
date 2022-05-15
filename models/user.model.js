@@ -9,6 +9,14 @@
             type: String,
             default : null
         },
+        cover_image: { 
+            type: String,
+            default : null
+        },
+        profile_photo: { 
+            type: String,
+            default : null
+        },
         username: {
             type: String ,
             default: 'Unamed'
@@ -29,7 +37,14 @@
             type: String ,
             default : null
         },
-        
+        favoris: [{
+            type: Schema.Types.ObjectId,
+            ref: 'nft'
+        }],
+        collected: [{
+            type: Schema.Types.ObjectId,
+            ref: 'nft'
+        }],
         dateCreated: {
             type: Date,
             default: new Date()
