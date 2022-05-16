@@ -16,8 +16,8 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET
         req.body.owner = wallet_address;
         Models.nft.create(req.body)
         .then( async nftData => {
-          await Models.user.findByIdAndUpdate(user._id, { $push: { collected: nftData._id } }, { returnOriginal: false })
-          return resolve({ nft: nftData })
+          const newUser = await Models.user.findByIdAndUpdate(user._id, { $push: { collected: nftData._id } }, { returnOriginal: false })
+          return resolve({ user: newUser })
         })
         .catch( nftError => reject(nftError) )
       })
