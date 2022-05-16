@@ -150,7 +150,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET
           if(!req.params.address) return reject( {'error': 'token address is required'})
           const options = { 
             address: req.params.address, 
-            chain: 'eth',
+            chain: 'testnet',
             days: 7
           };
           const data = await Moralis.Web3API.token.getNFTLowestPrice(options);
