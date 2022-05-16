@@ -114,6 +114,13 @@ class RouterClass {
                 .then(apiResponse => res.json({ data: apiResponse, err: null }))
                 .catch(apiError => res.status(500).json({ data: null, err: apiError }))
         })
+
+        this.router.get('/get-creators', (req, res) => {
+            Controllers.user.getAllCreators(req)
+                .then(apiResponse => res.json({ data: apiResponse, err: null }))
+                .catch(apiError => res.status(500).json({ data: null, err: apiError }))
+        })
+
     }
 
     init() {
