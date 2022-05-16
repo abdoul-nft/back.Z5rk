@@ -10,6 +10,7 @@ const MySchema = new Schema({
     owner: String,
     image: String,
     name: String,
+    description: String,
     floor_price: {
         type: String,
         default: null
