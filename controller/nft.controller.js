@@ -68,7 +68,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET
           const options = { 
             chain: "testnet",
             q: req.query.q, 
-            limit: 10
+            limit: 100
           };
           const NFTs = await Moralis.Web3API.token.searchNFTs(options);
           if(NFTs) return resolve(NFTs)
