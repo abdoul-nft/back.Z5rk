@@ -96,7 +96,7 @@ class RouterClass {
 
         // Create
         this.router.post('/nfts/mint/:wallet_address', (req, res) => {
-            Controllers.nft.saveMintedNft(req)
+            Controllers.nft.saveNft(req)
                 .then(apiResponse => res.json({ data: apiResponse, err: null }))
                 .catch(apiError => res.status(500).json({ data: null, err: apiError }))
         })

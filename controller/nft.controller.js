@@ -6,18 +6,18 @@ const appId = process.env.NFT_API_APP_ID
 const moralisSecret = process.env.NFT_API_MORALIS_SECRET
 
 
-    const saveMintedNft = (req) => {
+    const saveNft = (req) => {
       return new Promise( async (resolve, reject) => {
         const { wallet_address } = req.params
         if(!wallet_address) return reject( {'error': 'token address is required'})
         const user = await Models.user.findOne({wallet_address: wallet_address})
         if(!user) return reject('User not found error')
-        req.body.isPartOfUser = user._id;
-        req.body.owner = wallet_address;
+        // req.body.isPartOfUser = user._id;
+        // req.body.owner = wallet_address;
         Models.nft.create(req.body)
         .then( async nftData => {
-          const newUser = await Models.user.findByIdAndUpdate(user._id, { $push: { collected: nftData._id } }, { returnOriginal: false })
-          return resolve({ user: newUser })
+          // const newUser = await Models.user.findByIdAndUpdate(user._id, { $push: { collected: nftData._id } }, { returnOriginal: false })
+          return resolve({ nft: nftData })
         })
         .catch( nftError => reject(nftError) )
       })
@@ -32,8 +32,8 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET
         if(!user) return reject('User not found error')
         Models.nft.findOne({token_address: token_address})
         .then( async nftData => {
-          const like = Models.like.create({ nft: nftData._id, user: user._id });
-          await Models.nft.findByIdAndUpdate(nftData._id, { $push: { likes: like._id } }, { returnOriginal: false })
+          // const like = Models.like.create({ nft: nftData._id, user: user._id });
+          // await Models.nft.findByIdAndUpdate(nftData._id, { $push: { likes: like._id } }, { returnOriginal: false })
           await Models.user.findByIdAndUpdate(user._id, { $push: { favoris: nftData._id } }, { returnOriginal: false })
           return resolve({ nft: nftData })
         })
@@ -253,7 +253,7 @@ const moralisSecret = process.env.NFT_API_MORALIS_SECRET
       getNftFloorPrice,
       getNftAsset,
       getNftOrders,
-      saveMintedNft,
+      saveNft,
       likeNft,
       getCurrentUserNfts,
     }
